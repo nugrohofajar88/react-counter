@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<title>Learn React</title>
+
+<head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const container = document.getElementById("root");
+        const root = ReactDOM.createRoot(container);
+
+        function Tombol({text, onClick, result}){
+            const disabled = (text !== 'Reset!') ? ((result > 9 || result < 0) ? true : false) : ((result > 9 || result < 0) ? true : false) 
+            const myStyle = (text == 'Reset!') ? {margin: 20} : {};
+            return (<button onClick={onClick} disabled={disabled} style={myStyle}>{text}</button>);
+        }
+
+        function Hasil({result}){
+            if(result > 9 || result < 0)
+                result = 'done'
+
+            return (<span style={{margin:20}}>{result}</span>);
+        }
+
+        function Calculation(){
+            const [result, setResult] = React.useState(0);
+
+            function increment(){
+                setResult(result + 1)
+            }
+
+            function decrement(){
+                setResult(result - 1)
+            }
+
+            function reset(){
+                setResult(0)
+            }
+
+            return (
+                <>
+                <Hasil result="Test Counter: " />
+                <Tombol text="-" onClick={decrement} result={result} />
+                <Hasil result={result} />
+                <Tombol text="+" onClick={increment} result={result}/>
+                <Tombol text="Reset!" onClick={reset}/>
+                </>
+            )
+        }
+
+        root.render(<Calculation />);
+    </script>
+</body>
+
+</html>
